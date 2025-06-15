@@ -54,7 +54,7 @@ class Hook:
             found, match = self.find_image('hook')
             
             if found:
-                self.mouse.position = (match['center'][0], match['center'][1])
+                self.mouse.position = ( match['center'][0] + self.monitor['left'], match['center'][1] + self.monitor['top'])
                 self.mouse.click(mouse.Button.left)
                 break
             else:
@@ -79,7 +79,7 @@ class Hook:
         found, match = self.find_image('hook_fish')
 
         if found:
-            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.position = ( match['center'][0] + self.monitor['left'], match['center'][1] + self.monitor['top'])
             self.mouse.click(mouse.Button.left)
             return True
         else:
