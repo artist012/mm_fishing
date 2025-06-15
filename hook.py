@@ -60,7 +60,7 @@ class Hook:
             else:
                 self.keyboard.press('w')
                 self.keyboard.release('w')
-                sleep(1)
+                sleep(2)
                 continue
 
     # 물고기 기다리기
