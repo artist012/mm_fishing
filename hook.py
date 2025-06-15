@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from mss import mss
 from pynput import keyboard, mouse
-import time
+from time import sleep
 
 class Hook:
     def __init__(self, threshold=0.3):
@@ -60,6 +60,7 @@ class Hook:
             else:
                 self.keyboard.press('w')
                 self.keyboard.release('w')
+                sleep(1)
                 continue
 
     # 물고기 기다리기

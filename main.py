@@ -21,7 +21,7 @@ def main():
                 print('쓰레기가 낚였습니다\n재시작 합니다\n')
                 continue
 
-            sleep(5)
+            sleep(5.5)
 
             res = hook.hooking_fish()
             if res:
