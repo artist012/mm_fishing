@@ -99,7 +99,7 @@ class Hook:
             self.mouse.position = (match['center'][0], match['center'][1])
             self.mouse.click(mouse.Button.left)
         else: return
-        time.sleep(0.3)
+        time.sleep(0.2)
 
         found, match = self.find_image('cancel2')
         if found:
@@ -113,7 +113,7 @@ class Hook:
             self.mouse.position = (match['center'][0], match['center'][1])
             self.mouse.click(mouse.Button.left)
         else: return
-        time.sleep(0.3)
+        time.sleep(0.2)
 
         found, match = self.find_image('cancel2')
         if found:
@@ -124,6 +124,19 @@ class Hook:
     def is_fishing(self):
         found, _ = self.find_image('is_fishing')
         return found
+
+    def is_auto(self):
+        found, match = self.find_image('cancel1')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
+        else: pass
+        time.sleep(0.2)
+
+        found, match = self.find_image('cancel2')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
 
     def capture_screen(self):
         """화면을 캡처하여 OpenCV 이미지로 반환"""

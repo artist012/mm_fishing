@@ -36,6 +36,7 @@ def main():
                 print('물고기를 낚는데 실패했습니다\n재시작 합니다\n')                
         else:
             print("의도치 않게 낚시가 종료되었습니다\n재시작 합니다.\n")
+            hook.is_auto()
             continue
 
 if __name__ == "__main__":
