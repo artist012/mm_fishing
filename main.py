@@ -7,10 +7,16 @@ def main():
     hook = Hook(threshold=0.8)
     print('세팅 완료\n')
 
+    is_waste = False
+
     while True:
-        hook.start_hook()
-        print('낚시를 시작합니다')
-        sleep(1)
+        if not is_waste:
+            hook.start_hook()
+            print('낚시를 시작합니다')
+            sleep(1)
+        else:
+            hook.waste_cancel()
+            sleep(1.7)
         if hook.is_fishing():
             print('물고기 기다리기 시작')
             hook.wait_fish()
@@ -30,6 +36,7 @@ def main():
                 print('물고기를 낚는데 실패했습니다\n재시작 합니다\n')                
         else:
             print("의도치 않게 낚시가 종료되었습니다\n재시작 합니다.\n")
+            hook.is_auto()
             continue
 
 if __name__ == "__main__":

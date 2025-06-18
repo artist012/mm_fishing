@@ -92,15 +92,52 @@ class Hook:
         waste1, _ = self.find_image('waste1', screen_img)
         waste2, _ = self.find_image('waste2', screen_img)
 
-        if waste1 or waste2:
-            return True
-        else:
-            return False
+        return waste1 or waste2
+
+    def waste_cancel(self):
+        found, match = self.find_image('is_fishing')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
+        else: return
+        time.sleep(0.2)
+
+        found, match = self.find_image('cancel2')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
+        else: return
+        time.sleep(1.7)
+
+        found, match = self.find_image('cancel1')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
+        else: return
+        time.sleep(0.2)
+
+        found, match = self.find_image('cancel2')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
 
     # 낚시중인지 체크
     def is_fishing(self):
         found, _ = self.find_image('is_fishing')
         return found
+
+    def is_auto(self):
+        found, match = self.find_image('cancel1')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
+        else: pass
+        time.sleep(0.2)
+
+        found, match = self.find_image('cancel2')
+        if found:
+            self.mouse.position = (match['center'][0], match['center'][1])
+            self.mouse.click(mouse.Button.left)
 
     def capture_screen(self):
         """화면을 캡처하여 OpenCV 이미지로 반환"""
