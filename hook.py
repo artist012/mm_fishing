@@ -85,8 +85,6 @@ class Hook:
             return True
         else:
             return False
-            
-            if found:
 
     def check_waste(self):
         screen_img = self.capture_screen()
