@@ -12,7 +12,7 @@ def main():
         print('낚시를 시작합니다')
         sleep(1)
         if hook.is_fishing():
-            print('물고기 기다리기 시작')
+            print('물고기 기다리는 중')
             hook.wait_fish()
             print('입질이 왔습니다')
 

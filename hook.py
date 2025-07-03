@@ -72,30 +72,36 @@ class Hook:
                 return match['center']
 
     # 물고기 입질옴
-    #
-    # 반응이 왔다.,
-    # 뭔가 걸렸다,
-    # 라는 멘트는 잡템
     def hooking_fish(self):
         found, match = self.find_image('hook_fish')
 
         if found:
             self.mouse.position = (match['center'][0] + self.monitor['left'], match['center'][1] + self.monitor['top'])
             self.mouse.click(mouse.Button.left)
+
+            print("낚시가 끝나길 기다리는 중입니다")
+            self.is_done()
+            print("낚시가 끝났습니다")
             return True
         else:
             return False
+    
+    # 낚시가 끝났는지 체크
+    def is_done(self):
+        for _ in range(14): # 최대 딜레이 7초임
+            found, match = self.find_image('hook')
+            
+            if found:
+                return
+            sleep(0.5)
 
     def check_waste(self):
         screen_img = self.capture_screen()
         
-        waste1, _ = self.find_image('waste1', screen_img)
-        waste2, _ = self.find_image('waste2', screen_img)
-
-        if waste1 or waste2:
+        if self.find_image('waste1', screen_img): # 뭔가 걸렸다
             return True
-        else:
-            return False
+        if self.find_image('waste2', screen_img): # 반응이 왔다
+            return True
 
     # 낚시중인지 체크
     def is_fishing(self):
