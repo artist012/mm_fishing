@@ -3,6 +3,7 @@ import numpy as np
 from mss import mss
 from pynput import keyboard, mouse
 from time import sleep
+import os
 
 class Hook:
     def __init__(self, threshold=0.3):
@@ -21,9 +22,11 @@ class Hook:
         self.sct = mss()
         self.monitor = self.sct.monitors[0]
 
-    def test(self):
-        screen_img = self.capture_screen()
-        found, match = self.find_image('hook_fish')
+    def test(self, screen_img=None, name=None):
+        if screen_img is None:
+            screen_img = self.capture_screen()
+
+        found, match = self.find_image(name)
         
         result_img = screen_img.copy()
         
@@ -60,7 +63,7 @@ class Hook:
             else:
                 self.keyboard.press('w')
                 self.keyboard.release('w')
-                sleep(2)
+                sleep(1.5)
                 continue
 
     # 물고기 기다리기
@@ -79,29 +82,23 @@ class Hook:
             self.mouse.position = (match['center'][0] + self.monitor['left'], match['center'][1] + self.monitor['top'])
             self.mouse.click(mouse.Button.left)
 
-            print("낚시가 끝나길 기다리는 중입니다")
-            self.is_done()
-            print("낚시가 끝났습니다")
             return True
         else:
             return False
-    
-    # 낚시가 끝났는지 체크
-    def is_done(self):
-        for _ in range(14): # 최대 딜레이 7초임
-            found, match = self.find_image('hook')
             
             if found:
-                return
-            sleep(0.5)
 
     def check_waste(self):
         screen_img = self.capture_screen()
-        
-        if self.find_image('waste1', screen_img): # 뭔가 걸렸다
-            return True
-        if self.find_image('waste2', screen_img): # 반응이 왔다
-            return True
+
+        wastes = [f for f in os.listdir('image/') if f.startswith('waste')] # waste로 시작하는 이미지 전부 체크
+
+        for waste in wastes:
+            waste = waste.replace('.png', '')
+
+            if self.find_image(waste, screen_img)[0]:
+                print(waste)
+                return True
 
     # 낚시중인지 체크
     def is_fishing(self):
