@@ -85,6 +85,16 @@ class Hook:
             return True
         else:
             return False
+        
+    # 아이템 사용 팝업 닫기
+    def close_item_usage_popup(self):
+        found, match = self.find_image('item_usage_close')
+
+        if found:
+            self.mouse.position = (match['center'][0] + self.monitor['left'], match['center'][1] + self.monitor['top'])
+            self.mouse.click(mouse.Button.left)
+        
+        return found
 
     def check_waste(self):
         screen_img = self.capture_screen()

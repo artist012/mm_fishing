@@ -25,9 +25,15 @@ def main():
 
             res = hook.hooking_fish()
             if res:
+                while hook.is_fishing():
+                    continue
                 print('물고기를 낚았습니다\n재시작 합니다\n')
             else:
-                print('물고기를 낚는데 실패했습니다\n재시작 합니다\n')                
+                print('물고기를 낚는데 실패했습니다\n재시작 합니다\n')
+        elif hook.close_item_usage_popup():
+            print("아이템 사용 팝업을 닫습니다\n재시작 합니다.\n")
+            sleep(1)
+            continue             
         else:
             print("의도치 않게 낚시가 종료되었습니다\n재시작 합니다.\n")
             continue
